@@ -5,13 +5,19 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/rajith-8/devops-demo.git'
+                git 'https://github.com/mark8place/devops-demo.git'
             }
         }
 
-        stage('Run App') {
+        stage('Build Docker Image') {
             steps {
-                sh 'node app.js'
+                sh 'docker build -t devops-demo:latest .'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run --rm devops-demo:latest'
             }
         }
 
